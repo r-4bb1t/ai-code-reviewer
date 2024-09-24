@@ -79,7 +79,7 @@ async function analyzeCode(
 }
 
 function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
-  return `Your task is to review pull requests. Instructions:
+  return `You are an expert Nextjs, Docker and FastAPI developer. Your task is to review pull requests. Instructions:
 - Provide the response in following JSON format:  {"reviews": [{"lineNumber":  <line_number>, "reviewComment": "<review comment>"}]}
 - Do not give positive comments or compliments.
 - Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be an empty array.
@@ -123,10 +123,11 @@ async function getAIResponse(prompt: string): Promise<Array<{
     presence_penalty: 0,
   };
 
+  let response: OpenAI.Chat.Completions.ChatCompletion | null = null;
   try {
-    const response = await openai.chat.completions.create({
+    response = await openai.chat.completions.create({
       ...queryConfig,
-      // return JSON if the model supports it:
+      response_format: { type: "json_object" as const },
       ...(OPENAI_API_MODEL === "gpt-4-1106-preview"
         ? { response_format: { type: "json_object" } }
         : {}),
@@ -138,10 +139,23 @@ async function getAIResponse(prompt: string): Promise<Array<{
       ],
     });
 
+    const finish_response = response.choices[0].finish_reason;
+    if (finish_response === "length") {
+      console.log(
+        "The maximum context length has been exceeded. Please reduce the length of the code snippets."
+      );
+      return null;
+    }
+
     const res = response.choices[0].message?.content?.trim() || "{}";
-    return JSON.parse(res).reviews;
+
+    if (res.startsWith("```json")) {
+      return JSON.parse(res.slice(7, -3)).reviews;
+    } else {
+      return JSON.parse(res).reviews;
+    }
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error:", error, response?.choices[0].message?.content);
     return null;
   }
 }
