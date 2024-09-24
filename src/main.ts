@@ -86,6 +86,7 @@ function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
 - Write the comment in GitHub Markdown format.
 - Use the given description only for the overall context and only comment the code.
 - IMPORTANT: You SHOULD use KOREAN language for the review. (한국어로 리뷰를 작성해주세요)
+- IMPORTANT: NEVER suggest translating the code to English.
 - IMPORTANT: NEVER suggest adding comments to the code.
 
 Review the following code diff in the file "${
