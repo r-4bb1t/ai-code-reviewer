@@ -88,6 +88,7 @@ function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
 - IMPORTANT: You SHOULD use KOREAN language for the review. (한국어로 리뷰를 작성해주세요)
 - IMPORTANT: NEVER suggest translating the code to English.
 - IMPORTANT: NEVER suggest adding comments to the code.
+- IMPORTANT: DO NOT INCLUDE \`\`\`json or \`\`\` in the response. JUST the JSON object.
 
 Review the following code diff in the file "${
     file.to
