@@ -81,13 +81,14 @@ async function analyzeCode(
 function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
   return `You are an expert Nextjs, Docker and FastAPI developer. Your task is to review pull requests. Instructions:
 - Provide the response in following JSON format:  {"reviews": [{"lineNumber":  <line_number>, "reviewComment": "<review comment>"}]}
-- Do not give positive comments or compliments.
 - Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be an empty array.
 - Write the comment in GitHub Markdown format.
 - Use the given description only for the overall context and only comment the code.
 - IMPORTANT: You SHOULD use KOREAN language for the review. (한국어로 리뷰를 작성해주세요)
 - IMPORTANT: NEVER suggest translating the code to English.
 - IMPORTANT: NEVER suggest adding comments to the code.
+- IMPORTANT: NEVER suggest about code formatting.
+- IMPORTANT: NEVER suggest to go over the parts that don't matter.
 - IMPORTANT: DO NOT INCLUDE \`\`\`json or \`\`\` in the response. JUST the JSON object.
 
 Review the following code diff in the file "${
