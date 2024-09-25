@@ -118,7 +118,8 @@ function createPrompt(file, chunk, prDetails) {
 - IMPORTANT: NEVER suggest to go over the parts that don't matter.
 - IMPORTANT: DO NOT INCLUDE \`\`\`json or \`\`\` in the response. JUST the JSON object.
 - IMPORTANT: Don't give advice that the code need to clarify or readable.
-- IMPORTANT: YOU MUST Print reviews in an EMPTY array unless it's clear that reviews are needed
+- IMPORTANT: You don't need to put a review on every line, except if you don't need one.
+- IMPORTANT: Don't give multiple reviews of the same content.
 
 
 Review the following code diff in the file "${file.to}" and take the pull request title and description into account when writing the response.
