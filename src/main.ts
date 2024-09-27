@@ -87,7 +87,7 @@ function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
 - IMPORTANT: You SHOULD use KOREAN language for the review. (한국어로 리뷰를 작성해주세요)
 - IMPORTANT: NEVER suggest translating the code to English.
 - IMPORTANT: NEVER suggest adding comments to the code.
-- IMPORTANT: NEVER suggest about code formatting.
+- IMPORTANT: NEVER suggest about code formatting or changing variable names.
 - IMPORTANT: NEVER suggest to go over the parts that don't matter.
 - IMPORTANT: DO NOT INCLUDE \`\`\`json or \`\`\` in the response. JUST the JSON object.
 - IMPORTANT: Don't give advice that the code need to clarify or readable.
